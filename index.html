@@ -23,11 +23,11 @@
 
     <!-- Printing and PDF exports -->
     <script>
-			var link = document.createElement( 'link' );
-			link.rel = 'stylesheet';
-			link.type = 'text/css';
-			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
-			document.getElementsByTagName( 'head' )[0].appendChild( link );
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
 
     </script>
 
@@ -40,235 +40,235 @@
 
 <div class="reveal">
 
-    <!-- Any section element inside of this container is displayed as a slide -->
-    <div class="slides">
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
 
-        <section>
-            <h1>Scala philosophy</h1>
-            <small>Created by <a href="">Stanislav Chetvertkov</a></small>
-        </section>
+<section>
+    <h1>Scala philosophy</h1>
+    <small>Created by <a href="">Stanislav Chetvertkov</a></small>
+</section>
 
-        <section>
-            <h1>Definition</h1>
+<section>
+    <h1>Definition</h1>
 
-            <p>
-                Scala is a modern multi-paradigm programming language designed in a way to be able to express common
-                programming patterns in concise elegant and type-safe way
+    <p>
+        Scala is a modern multi-paradigm programming language designed in a way to be able to express common
+        programming patterns in concise elegant and type-safe way
+    </p>
+</section>
+
+<section id="fragments">
+    <h2>History</h2>
+    <ul>
+        <li>Created by Martin Odersky</li>
+        <li class="fragment">Was released internally in late 2003</li>
+        <li class="fragment">2.0 in was released in March 2006</li>
+        <li class="fragment">In 2011 Typesafe Inc. was founded to support and promote the language</li>
+        <li class="fragment">Current version 2.12</li>
+    </ul>
+
+    <aside class="notes">
+        This slide has fragments which are also stepped through in the notes window.
+    </aside>
+</section>
+
+<section>
+    TODO
+    <p>
+        extending types by implicits
+        duck typing
+        case classes
+        companion object
+        no primitive types
+    </p>
+</section>
+
+<section>
+    <section>
+        <h2>Case classes</h2>
+        <ul>
+            <li>Perfect for creating DTO's</li>
+            <li>Immutable by default</li>
+            <li>Getters and setters</li>
+            <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b></li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Declaration</h2>
+        <pre><code>case class User(name:String, age:Int)</code></pre>
+
+        <p>In case user wants to change his name</p>
+        <pre><code>case class User(var name:String, age:Int) // name is mutable</code></pre>
+    </section>
+
+    <section>
+        <h2>Creation</h2>
+
+        <p>Instance can be created by calling</p>
+        <pre><code>User("John", 20)</code></pre>
+
+        <p>Add validation by using require</p>
+
+        <p>vars</p>
+    </section>
+
+</section>
+
+<!-- Example of nested vertical slides -->
+<section>
+    <section>
+        <h2>Key features</h2>
+    </section>
+
+    <section>
+        <h2>Combines Functional and Object oriented paradigm</h2>
+
+        <p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+    </section>
+
+    <section><h2>Compiles into JVM byte code interoperates with Java</h2></section>
+
+    <section><h2>Statically typed</h2></section>
+
+    <section>
+        <h2>Lazy (non-strict) evaluation</h2>
+
+        <p>There are 2 types of functions passing:</p>
+        <ul>
+            <li>
+                Strict Evaluation happens immediately
+                <pre><code>def strictFunction(arg: A) = …</code></pre>
+            </li>
+            <li>
+                Non-Strict - Evaluation is delayed as long as possible
+                <pre><code>def nonStrictFunction(arg: => A) = …</code></pre>
+            </li>
+        </ul>
 
 
-            </p>
-        </section>
+    </section>
 
-        <section id="fragments">
-            <h2>History</h2>
-            <ul>
-                <li>Created by Martin Odersky</li>
-                <li class="fragment">Was released internally in late 2003</li>
-                <li class="fragment">2.0 in was released in March 2006</li>
-                <li class="fragment">In 2011 Typesafe Inc. was founded to support and promote the language</li>
-                <li class="fragment">Current version 2.12</li>
-            </ul>
+    <section>
+        <h2>Prefer Immutable</h2>
+        <ul>
+            <li>Safe publishing among threads</li>
+            <li>Safe equals and hashcode</li>
+            <li>Correct work for generics</li>
+            <li>Easier to reason about behaviour without mutations</li>
+        </ul>
+    </section>
 
-            <aside class="notes">
-                This slide has fragments which are also stepped through in the notes window.
-            </aside>
-        </section>
+</section>
 
-        <section>
-            TODO
-            <p>
-                extending types by implicits
-                duck typing
-                case classes
-                companion object
-                no primitive types</p>
-        </section>
-
-        <section>
-            <section>
-                <h2>Case classes</h2>
-                <ul>
-                    <li>Perfect for creating DTO's</li>
-                    <li>Immutable by default</li>
-                    <li>Getters and setters</li>
-                    <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b></li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Declaration</h2>
-                <pre><code>case class User(name:String, age:Int)</code></pre>
-
-                <p>In case user wants to change his name</p>
-                <pre><code>case class User(var name:String, age:Int) // name is mutable</code></pre>
-            </section>
-
-            <section>
-                <h2>Creation</h2>
-                <p>Instance can be created by calling</p>
-                <pre><code>User("John", 20)</code></pre>
-
-                <p>Add validation by using require</p>
-
-                <p>vars</p>
-            </section>
-
-        </section>
-
-        <!-- Example of nested vertical slides -->
-        <section>
-            <section>
-                <h2>Key features</h2>
-            </section>
-
-            <section>
-                <h2>Combines Functional and Object oriented paradigm</h2>
-
-                <p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
-            </section>
-
-            <section><h2>Compiles into JVM byte code interoperates with Java</h2></section>
-
-            <section><h2>Statically typed</h2></section>
-
-            <section>
-                <h2>Lazy (non-strict) evaluation</h2>
-
-                <p>There are 2 types of functions passing:</p>
-                <ul>
-                    <li>
-                        Strict Evaluation happens immediately
-                        <pre><code>def strictFunction(arg: A) = …</code></pre>
-                    </li>
-                    <li>
-                        Non-Strict - Evaluation is delayed as long as possible
-                        <pre><code>def nonStrictFunction(arg: => A) = …</code></pre>
-                    </li>
-                </ul>
-
-
-            </section>
-
-            <section>
-                <h2>Prefer Immutable</h2>
-                <ul>
-                    <li>Safe publishing among threads</li>
-                    <li>Safe equals and hashcode</li>
-                    <li>Correct work for generics</li>
-                    <li>Easier to reason about behaviour without mutations</li>
-                </ul>
-            </section>
-
-        </section>
-
-        <section>
-            <h2>Option</h2>
+<section>
+    <h2>Option</h2>
 					<pre>
 						<code>
-    sealed trait Option[+A] {
-         def map[B](f: A => B): Option[B] def flatMap[B](f: A => Option[B]): Option[B]
-        def getOrElse[B >: A](default: => B): B //lazy eval
-        def orElse[B >: A](ob: => Option[B]): Option[B] //lazy eval
+                            sealed trait Option[+A] {
+                             def map[B](f: A => B): Option[B] def flatMap[B](f: A => Option[B]): Option[B]
+                            def getOrElse[B >: A](default: => B): B //lazy eval
+                            def orElse[B >: A](ob: => Option[B]): Option[B] //lazy eval
 
-        def filter(f: A => Boolean): Option[A]
-    }
+                            def filter(f: A => Boolean): Option[A]
+                            }
 
-    case class Some[+A](get: A) extends Option[A]
-    case object None extends Option[Nothing]
+                            case class Some[+A](get: A) extends Option[A]
+                            case object None extends Option[Nothing]
                         </code>
 					</pre>
-        </section>
+</section>
 
-        <section>
-            <section>
-                <h2>Object oriented</h2>
-                <ul>
-                    <li>Case classes</li>
-                    <li>Less boilerplate</li>
-                    <li>Object (static members is a lie)</li>
-                </ul>
-            </section>
+<section>
+    <section>
+        <h2>Object oriented</h2>
+        <ul>
+            <li>Case classes</li>
+            <li>Less boilerplate</li>
+            <li>Object (static members is a lie)</li>
+        </ul>
+    </section>
 
-            <section><h1>Case classes</h1></section>
+    <section><h1>Case classes</h1></section>
 
-            <section>
-                <h1>Less boilerplate</h1>
-            </section>
+    <section>
+        <h1>Less boilerplate</h1>
+    </section>
 
-            <section>
-                <h1>Object</h1>
-            </section>
-        </section>
+    <section>
+        <h1>Object</h1>
+    </section>
+</section>
 
-        <!-- Functional -->
+<!-- Functional -->
 
-        <section>
-            <section>
-                <h2>Functional</h2>
-                <ul>
-                    <li>Functions are first class citizens</li>
-                    <li>Tail recursion</li>
-                    <li>Pattern matching</li>
-                    <li>Higher Level Functions</li>
-                    <li>Anonymous functions</li>
-                    <li>Currying</li>
-                </ul>
-            </section>
+<section>
+    <section>
+        <h2>Functional</h2>
+        <ul>
+            <li>Functions are first class citizens</li>
+            <li>Tail recursion</li>
+            <li>Pattern matching</li>
+            <li>Higher Level Functions</li>
+            <li>Anonymous functions</li>
+            <li>Currying</li>
+        </ul>
+    </section>
 
-            <section>
-                <h2>Definition</h2>
-                <ol>
-                    <li>Programming using functions</li>
-                    <li>Programming with pure functions</li>
-                </ol>
-                <p>FP is a restriction on how we write programs, but not on what programs we can express</p>
-            </section>
+    <section>
+        <h2>Definition</h2>
+        <ol>
+            <li>Programming using functions</li>
+            <li>Programming with pure functions</li>
+        </ol>
+        <p>FP is a restriction on how we write programs, but not on what programs we can express</p>
+    </section>
 
-            <section>
-                <h3>Pure functions - are functions that have no side effects such:</h3>
-                <ol>
-                    <li>Change of external variable</li>
-                    <li>Change of a data structure/object in place</li>
-                    <li>Throwing an exception or halting with an error</li>
-                    <li>IO</li>
-                </ol>
-            </section>
+    <section>
+        <h3>Pure functions - are functions that have no side effects such:</h3>
+        <ol>
+            <li>Change of external variable</li>
+            <li>Change of a data structure/object in place</li>
+            <li>Throwing an exception or halting with an error</li>
+            <li>IO</li>
+        </ol>
+    </section>
 
-            <section>
-                <h3>Referential Transparency </h3>
-                <ul>
-                    <li>In any program, the expression can be replaced by its result without changing the meaning of the
-                        program
-                    </li>
-                    <li>Enables equational reasoning about programs. More mathematical approach to writing programs</li>
-                    <li>All pure functions are referentially equal</li>
-                </ul>
-            </section>
+    <section>
+        <h3>Referential Transparency </h3>
+        <ul>
+            <li>In any program, the expression can be replaced by its result without changing the meaning of the
+                program
+            </li>
+            <li>Enables equational reasoning about programs. More mathematical approach to writing programs</li>
+            <li>All pure functions are referentially equal</li>
+        </ul>
+    </section>
 
-            <section>
-                <h3>Profit from using pure functions</h3>
-                <ul>
-                    <li>Code reuse</li>
-                    <li>Testing and debugging</li>
-                    <li>Simplicity</li>
-                    <li>Multicore friendly</li>
-                    <li>Less bugs</li>
-                </ul>
-            </section>
+    <section>
+        <h3>Profit from using pure functions</h3>
+        <ul>
+            <li>Code reuse</li>
+            <li>Testing and debugging</li>
+            <li>Simplicity</li>
+            <li>Multicore friendly</li>
+            <li>Less bugs</li>
+        </ul>
+    </section>
 
-            <section>
-                <h3>Higher Order Function</h3>
-                <ul>
-                    <li>Take one or more function as input</li>
-                    <li>Return function as output</li>
-                    <li>Often used with function literals - lambdas(it is not a requirement)</li>
-                </ul>
-            </section>
+    <section>
+        <h3>Higher Order Function</h3>
+        <ul>
+            <li>Take one or more function as input</li>
+            <li>Return function as output</li>
+            <li>Often used with function literals - lambdas(it is not a requirement)</li>
+        </ul>
+    </section>
 
-            <section>
-                <h3>Lambdas</h3>
+    <section>
+        <h3>Lambdas</h3>
 
-                <p>Declaration</p>
+        <p>Declaration</p>
 						<pre>
 							<code class="scala" data-trim contenteditable>
                                 val multiplyByTwo: Int => Int = (i: Int) => i * 2
@@ -280,7 +280,7 @@
                             </code>
 						</pre>
 
-                <p>Usage</p>
+        <p>Usage</p>
 						<pre>
 							<code class="scala" data-trim contenteditable>
                                 nums.map((i: Int) => i * 2)
@@ -290,17 +290,17 @@
                                 nums.map(_ * 2)
                             </code>
 						</pre>
-            </section>
+    </section>
 
 
-            <section>
-                <h3>Recursion</h3>
-                <ul>
-                    <li>Substitute for loops and cycles</li>
-                    <li>State can be passed with additional arguments</li>
-                    <li>Use fold instead if possible</li>
-                    <li>Can cause stack overflow error</li>
-                </ul>
+    <section>
+        <h3>Recursion</h3>
+        <ul>
+            <li>Substitute for loops and cycles</li>
+            <li>State can be passed with additional arguments</li>
+            <li>Use fold instead if possible</li>
+            <li>Can cause stack overflow error</li>
+        </ul>
 
 						<pre>
 							<code class="scala" data-trim contenteditable>
@@ -309,12 +309,12 @@
                                 }
                             </code>
 						</pre>
-            </section>
+    </section>
 
-            <section>
-                <h3>Tail call optimization</h3>
+    <section>
+        <h3>Tail call optimization</h3>
 
-                <p>Tail call optimized version - recursive call is last</p>
+        <p>Tail call optimized version - recursive call is last</p>
 						<pre>
 							<code class="scala" data-trim>
                                 def factorial(n:Int):BigInt = {
@@ -328,20 +328,20 @@
                                 }
                             </code>
 						</pre>
-            </section>
+    </section>
 
-            <section>
-                <h2>Functional Data Structures</h2>
-                <ul>
-                    <li>Not mutable</li>
-                    <li>Instances share common parts</li>
-                    <li>Thread safe</li>
-                    <li>Operated with pure functions</li>
-                </ul>
-            </section>
+    <section>
+        <h2>Functional Data Structures</h2>
+        <ul>
+            <li>Not mutable</li>
+            <li>Instances share common parts</li>
+            <li>Thread safe</li>
+            <li>Operated with pure functions</li>
+        </ul>
+    </section>
 
-            <section>
-                <h2>Streams</h2>
+    <section>
+        <h2>Streams</h2>
 						<pre>
 							<code class="scala">
                                 sealed trait Stream[+A] 
@@ -359,12 +359,12 @@
                                 }
                             </code>
 						</pre>
-            </section>
+    </section>
 
-        </section>
+</section>
 
-        <section>
-            <h2>Type Inference</h2>
+<section>
+    <h2>Type Inference</h2>
 					<pre>
 						<code class="scala" data-trim contenteditable>
                             val str = "Hello world"
@@ -373,90 +373,90 @@
 
                         </code>
 					</pre>
-        </section>
+</section>
 
-        <section>
-            <h2>Pattern Matching</h2>
-            <ul>
-                <li>Functional analog to method overriding or also enums (in Java), ‘switch on steroids’</li>
-                <li>Uses deconstruct-ors ‘unapply’ methods</li>
-                <li>Algrebraic data types</li>
-            </ul>
-        </section>
+<section>
+    <h2>Pattern Matching</h2>
+    <ul>
+        <li>Functional analog to method overriding or also enums (in Java), ‘switch on steroids’</li>
+        <li>Uses deconstruct-ors ‘unapply’ methods</li>
+        <li>Algrebraic data types</li>
+    </ul>
+</section>
 
-        <section>
-            <h2>Scala vs Java</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Value</th>
-                    <th>Quantity</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Pros</td>
-                    <td>less boilerplate</td>
-                    <td>type inference</td>
-                <tr>
-                <tr>
-                    <td>Cons</td>
-                    <td>compiles longer</td>
-                    <td>not 100% backward compatible</td>
-                <tr>
+<section>
+    <h2>Scala vs Java</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Item</th>
+            <th>Value</th>
+            <th>Quantity</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Pros</td>
+            <td>less boilerplate</td>
+            <td>type inference</td>
+        <tr>
+        <tr>
+            <td>Cons</td>
+            <td>compiles longer</td>
+            <td>not 100% backward compatible</td>
+        <tr>
 
-                </tbody>
-            </table>
-        </section>
+        </tbody>
+    </table>
+</section>
 
-        <section>
-            <h2>Clever Quotes</h2>
+<section>
+    <h2>Clever Quotes</h2>
 
-            <p>
-                These guys come in two forms, inline: <q
-                    cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-                &ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
-            </p>
-            <blockquote
-                    cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
-                &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of
-                typewriters would
-                reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
-            </blockquote>
-        </section>
+    <p>
+        These guys come in two forms, inline: <q
+            cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;The nice thing about standards is that there are so many to choose from&rdquo;</q> and block:
+    </p>
+    <blockquote
+            cite="http://searchservervirtualization.techtarget.com/definition/Our-Favorite-Technology-Quotations">
+        &ldquo;For years there has been a theory that millions of monkeys typing at random on millions of
+        typewriters would
+        reproduce the entire works of Shakespeare. The Internet has proven this theory to be untrue.&rdquo;
+    </blockquote>
+</section>
 
 
-        <section>
-            <h2>Take a Moment</h2>
+<section>
+    <h2>Take a Moment</h2>
 
-            <p>
-                Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want
-                to take distracting slides off the screen.
-            </p>
-        </section>
+    <p>
+        Press B or . on your keyboard to pause the presentation. This is helpful when you're on stage and want
+        to take distracting slides off the screen.
+    </p>
+</section>
 
-        <section>
-            <h2>Much more</h2>
-            <ul>
-                <li>Right-to-left support</li>
-                <li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
-                <li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
-                <li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
-                <li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
-            </ul>
-        </section>
+<section>
+    <h2>Much more</h2>
+    <ul>
+        <li>Right-to-left support</li>
+        <li><a href="https://github.com/hakimel/reveal.js#api">Extensive JavaScript API</a></li>
+        <li><a href="https://github.com/hakimel/reveal.js#auto-sliding">Auto-progression</a></li>
+        <li><a href="https://github.com/hakimel/reveal.js#parallax-background">Parallax backgrounds</a></li>
+        <li><a href="https://github.com/hakimel/reveal.js#keyboard-bindings">Custom keyboard bindings</a></li>
+    </ul>
+</section>
 
-        <section style="text-align: left;">
-            <h1>THE END</h1>
+<section style="text-align: left;">
+    <h1>THE END</h1>
 
-            <p>
-                - <a href="http://slides.com">Try the online editor</a> <br>
-                - <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
-            </p>
-        </section>
+    <p>
+        - <a href="http://slides.com">Try the online editor</a> <br>
+        - <a href="https://github.com/hakimel/reveal.js">Source code &amp; documentation</a>
+    </p>
+</section>
 
-    </div>
+</div>
 
 </div>
 
@@ -465,26 +465,36 @@
 
 <script>
 
-			// Full list of configuration options available at:
-			// https://github.com/hakimel/reveal.js#configuration
-			Reveal.initialize({
-				controls: true,
-				progress: true,
-				history: true,
-				center: true,
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
 
-				transition: 'slide', // none/fade/slide/convex/concave/zoom
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
 
-				// Optional reveal.js plugins
-				dependencies: [
-					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
-					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
-					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
-					{ src: 'plugin/zoom-js/zoom.js', async: true },
-					{ src: 'plugin/notes/notes.js', async: true }
-				]
-			});
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
 
 
 </script>
