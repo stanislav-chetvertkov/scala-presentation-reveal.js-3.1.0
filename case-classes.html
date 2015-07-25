@@ -55,6 +55,32 @@
             </section>
 
             <section>
+                <h2>Little bit of decompiling</h2>
+                <pre><code>case class User(var age:Int, name:String)</code></pre>
+                compiled into
+                <pre><code>
+public class com.ringcentral.analytics.prs.exp.CaseClasses$User implements scala.Product,scala.Serializable {
+public int age(); //getter
+public void age_$eq(int); //setter(for mutable field)
+public java.lang.String name(); // getter for 'name' field
+public com.ringcentral.analytics.prs.exp.CaseClasses$User copy(int, java.lang.String);
+public int copy$default$1();
+public java.lang.String copy$default$2();
+public java.lang.String productPrefix();
+public int productArity();
+public java.lang.Object productElement(int);
+public scala.collection.Iterator&lt;java.lang.Object&gt; productIterator();
+public boolean canEqual(java.lang.Object);
+public int hashCode();
+public java.lang.String toString(); // overriding object's toString
+public boolean equals(java.lang.Object); // overriding object's equals
+public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String);
+}
+                </code></pre>
+
+            </section>
+
+            <section>
                 <h2>Declaration</h2>
                 <pre><code>case class User(name:String, age:Int)</code></pre>
 
@@ -127,6 +153,47 @@ user.age += 1
 user
 //User(16,Kevin,false)
                 </code></pre>
+            </section>
+
+            <section>
+                <h2>Adding validation</h2>
+                <pre><code>
+case class User(age:Int, name:String) {
+require(age > 0, "Age should be a positive number")
+}
+
+User(-20, "John").equals()
+// trows IllegalArgumentException
+                </code></pre>
+            </section>
+
+            <section>
+                <h3>Value classes</h3>
+                <pre><code>
+case class Salary(amount:Int) extends AnyVal
+                </code></pre>
+
+                <p>when extending value classes primitive types are used under the hood</p>
+                <code>
+                    <pre>
+public class com.ringcentral.analytics.prs.exp.Example {
+public int salary();
+public com.ringcentral.analytics.prs.exp.Example();
+}
+                    </pre>
+                </code>
+                <p>Objects are used when using regular case classes</p>
+                <code>
+                    <pre>
+public class com.ringcentral.analytics.prs.exp.Example {
+public com.ringcentral.analytics.prs.exp.CaseClasses$Salary salary();
+public com.ringcentral.analytics.prs.exp.Example();
+}
+                    </pre>
+                </code>
+
+                <i>This optimization only works with 1 parameter case classes</i>
+
             </section>
 
         </section>
