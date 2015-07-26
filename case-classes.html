@@ -45,12 +45,21 @@
 
         <section>
             <section>
-                <h2>Case classes</h2>
+                <h2>Case classes in Scala</h2>
+            </section>
+
+            <section>
+                <q>Case classes are regular classes which export their constructor parameters
+                    and which provide a recursive decomposition mechanism via pattern matching.</q>
+            </section>
+
+            <section>
+                <h4>What are they</h4>
                 <ul>
-                    <li>Perfect for creating DTO's</li>
+                    <li>Syntactic sugar for creating DTO objects</li>
                     <li>Immutable by default</li>
-                    <li>Getters and setters</li>
-                    <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b></li>
+                    <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b> free getters and setters</li>
+                    <li>Easy to use with pattern matching</li>
                 </ul>
             </section>
 
@@ -93,8 +102,7 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
 
                 <p>Instance can be created by calling</p>
                 <pre><code>val john = User("John", 20)</code></pre>
-
-                <p>Add validation by using require</p>
+                <p>The constructor parameters of case classes are treated as public values and can be accessed directly.</p>
 
                 <p>vars</p>
             </section>
@@ -114,6 +122,12 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
                     <pre><code>User(20,"John") == User(20, "Stan") //false </code></pre>
                     <p>Note:frefer using <code>==</code> in scala instead of <code>.equals</code></p>
                 </div>
+
+            </section>
+
+            <section>
+                <h2>Pattern matching</h2>
+
 
             </section>
 
