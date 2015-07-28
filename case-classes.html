@@ -64,6 +64,14 @@
             </section>
 
             <section>
+                <h2>Declaration</h2>
+                <pre><code>case class User(name:String, age:Int)</code></pre>
+
+                <p>In case user wants to change his name</p>
+                <pre><code>case class User(var name:String, age:Int) // name is mutable</code></pre>
+            </section>
+
+            <section>
                 <h2>Little bit of decompiling</h2>
                 <pre><code>case class User(var age:Int, name:String)</code></pre>
                 compiled into
@@ -89,13 +97,7 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
 
             </section>
 
-            <section>
-                <h2>Declaration</h2>
-                <pre><code>case class User(name:String, age:Int)</code></pre>
 
-                <p>In case user wants to change his name</p>
-                <pre><code>case class User(var name:String, age:Int) // name is mutable</code></pre>
-            </section>
 
             <section>
                 <h2>Creation</h2>
@@ -135,25 +137,21 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
                 <h2>Redefine methods</h2>
 <pre><code>case class User(age:Int, name:String){
     override def toString = s"User name:$name; age:$age"
-}</code>
-                </pre>
+}</code></pre>
 
                 <code>User(12, "John") == "User name:John; age:12"</code>
             </section>
 
             <section>
                 <h2>Specify default values</h2>
-                <pre>
-                    <code>
+                <pre><code>
 case class User(age:Int=0, name:String, isRegistered:Boolean = false)
 
 val user = User(15, "Kevin")
 // User(15,Kevin,false)
 
 val user2 = User(name = "Mike", isRegistered = true)
-// User(0,Mike,true)
-                    </code>
-                </pre>
+// User(0,Mike,true)</code></pre>
             </section>
 
             <section>
@@ -173,7 +171,7 @@ user
                 <h2>Adding validation</h2>
                 <pre><code>
 case class User(age:Int, name:String) {
-require(age > 0, "Age should be a positive number")
+    require(age > 0, "Age should be a positive number")
 }
 
 User(-20, "John").equals()
@@ -183,30 +181,31 @@ User(-20, "John").equals()
 
             <section>
                 <h3>Value classes</h3>
+                <i>This optimization only works with 1 parameter case classes</i>
                 <pre><code>
 case class Salary(amount:Int) extends AnyVal
                 </code></pre>
 
-                <p>when extending value classes primitive types are used under the hood</p>
+                <p>Primitive types are used when extending AnyVal</p>
                 <code>
-                    <pre>
+                    <pre><code>
 public class com.ringcentral.analytics.prs.exp.Example {
-public int salary();
-public com.ringcentral.analytics.prs.exp.Example();
+    public int salary();
+    public com.ringcentral.analytics.prs.exp.Example();
 }
-                    </pre>
+                    </code></pre>
                 </code>
                 <p>Objects are used when using regular case classes</p>
                 <code>
-                    <pre>
+                    <pre><code>
 public class com.ringcentral.analytics.prs.exp.Example {
 public com.ringcentral.analytics.prs.exp.CaseClasses$Salary salary();
 public com.ringcentral.analytics.prs.exp.Example();
 }
-                    </pre>
+                    </code></pre>
                 </code>
 
-                <i>This optimization only works with 1 parameter case classes</i>
+
 
             </section>
 
