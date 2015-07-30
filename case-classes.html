@@ -129,7 +129,15 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
 
             <section>
                 <h2>Pattern matching</h2>
+                <pre><code>
+case class User(var age:Int, name:String, address:Address)
+case class Address(city:String, street:String, zipCode:Int)
 
+
+def extractNameAndCity(user:User) = user match {
+    case User(_,name, Address(city, _, _)) => (name,city)
+}
+                </code></pre>
 
             </section>
 
@@ -196,11 +204,12 @@ public class com.ringcentral.analytics.prs.exp.Example {
                     </code></pre>
                 </code>
                 <p>Objects are used when using regular case classes</p>
+                <!--todo:change package names-->
                 <code>
                     <pre><code>
 public class com.ringcentral.analytics.prs.exp.Example {
-public com.ringcentral.analytics.prs.exp.CaseClasses$Salary salary();
-public com.ringcentral.analytics.prs.exp.Example();
+    public com.ringcentral.analytics.prs.exp.Salary salary();
+    public com.ringcentral.analytics.prs.exp.Example();
 }
                     </code></pre>
                 </code>
