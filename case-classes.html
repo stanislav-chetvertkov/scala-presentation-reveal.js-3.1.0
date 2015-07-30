@@ -44,22 +44,16 @@
     <div class="slides">
 
         <section>
-            <section>
-                <h2>Case classes in Scala</h2>
-            </section>
 
             <section>
-                <q>Case classes are regular classes which export their constructor parameters
-                    and which provide a recursive decomposition mechanism via pattern matching.</q>
-            </section>
-
-            <section>
-                <h4>What are they</h4>
+                <h2>What are they</h2>
                 <ul>
+                    <li>Regular classes</li>
                     <li>Syntactic sugar for creating DTO objects</li>
                     <li>Immutable by default</li>
-                    <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b> free getters and setters</li>
+                    <li>Have default implementation for <b>toString</b>, <b>hashCode</b> and <b>equals</b> + free getters and setters</li>
                     <li>Easy to use with pattern matching</li>
+                    <li>Provide a recursive decomposition mechanism via pattern matching</li>
                 </ul>
             </section>
 
@@ -67,8 +61,19 @@
                 <h2>Declaration</h2>
                 <pre><code>case class User(name:String, age:Int)</code></pre>
 
-                <p>In case user wants to change his name</p>
-                <pre><code>case class User(var name:String, age:Int) // name is mutable</code></pre>
+
+            </section>
+
+            <section>
+                <h2>Creation</h2>
+
+                <p>Instance can be created by calling</p>
+                <pre><code>val user = User("John", 20)</code></pre>
+                <p>The constructor parameters of case classes are treated as public values and can be accessed directly.</p>
+
+                <pre><code>
+user.name // returns "John"
+                </code></pre>
             </section>
 
             <section>
@@ -76,37 +81,25 @@
                 <pre><code>case class User(var age:Int, name:String)</code></pre>
                 compiled into
                 <pre><code>
-public class com.ringcentral.analytics.prs.exp.CaseClasses$User implements scala.Product,scala.Serializable {
-public int age(); //getter
-public void age_$eq(int); //setter(for mutable field)
-public java.lang.String name(); // getter for 'name' field
-public com.ringcentral.analytics.prs.exp.CaseClasses$User copy(int, java.lang.String);
-public int copy$default$1();
-public java.lang.String copy$default$2();
-public java.lang.String productPrefix();
-public int productArity();
-public java.lang.Object productElement(int);
-public scala.collection.Iterator&lt;java.lang.Object&gt; productIterator();
-public boolean canEqual(java.lang.Object);
-public int hashCode();
-public java.lang.String toString(); // overriding object's toString
-public boolean equals(java.lang.Object); // overriding object's equals
-public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String);
+public class CaseClasses$User implements scala.Product,scala.Serializable {
+    public int age(); //getter
+    public void age_$eq(int); //setter(for mutable field)
+    public java.lang.String name(); // getter for 'name' field
+    public CaseClasses$User copy(int, java.lang.String);
+    public int copy$default$1();
+    public java.lang.String copy$default$2();
+    public java.lang.String productPrefix();
+    public int productArity();
+    public java.lang.Object productElement(int);
+    public scala.collection.Iterator&lt;java.lang.Object&gt; productIterator();
+    public boolean canEqual(java.lang.Object);
+    public int hashCode();  // hashcode
+    public java.lang.String toString(); // overriding object's toString
+    public boolean equals(java.lang.Object); // overriding object's equals
+    public CaseClasses$User(int, java.lang.String);
 }
                 </code></pre>
 
-            </section>
-
-
-
-            <section>
-                <h2>Creation</h2>
-
-                <p>Instance can be created by calling</p>
-                <pre><code>val john = User("John", 20)</code></pre>
-                <p>The constructor parameters of case classes are treated as public values and can be accessed directly.</p>
-
-                <p>vars</p>
             </section>
 
             <section>
@@ -121,7 +114,7 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
                 <div>
                     <h3>Equals</h3>
                     <pre><code>User(20,"John") == User(20, "John") //true </code></pre>
-                    <pre><code>User(20,"John") == User(20, "Stan") //false </code></pre>
+                    <pre><code>User(20,"John") == User(25, "Mike") //false </code></pre>
                     <p>Note:frefer using <code>==</code> in scala instead of <code>.equals</code></p>
                 </div>
 
@@ -133,12 +126,10 @@ public com.ringcentral.analytics.prs.exp.CaseClasses$User(int, java.lang.String)
 case class User(var age:Int, name:String, address:Address)
 case class Address(city:String, street:String, zipCode:Int)
 
-
 def extractNameAndCity(user:User) = user match {
     case User(_,name, Address(city, _, _)) => (name,city)
 }
                 </code></pre>
-
             </section>
 
             <section>
@@ -183,7 +174,7 @@ case class User(age:Int, name:String) {
 }
 
 User(-20, "John").equals()
-// trows IllegalArgumentException
+// throws IllegalArgumentException
                 </code></pre>
             </section>
 
@@ -195,27 +186,24 @@ case class Salary(amount:Int) extends AnyVal
                 </code></pre>
 
                 <p>Primitive types are used when extending AnyVal</p>
-                <code>
                     <pre><code>
-public class com.ringcentral.analytics.prs.exp.Example {
+public class Example {
     public int salary();
-    public com.ringcentral.analytics.prs.exp.Example();
+    public Example();
 }
                     </code></pre>
-                </code>
                 <p>Objects are used when using regular case classes</p>
                 <!--todo:change package names-->
-                <code>
                     <pre><code>
-public class com.ringcentral.analytics.prs.exp.Example {
-    public com.ringcentral.analytics.prs.exp.Salary salary();
-    public com.ringcentral.analytics.prs.exp.Example();
+public Example {
+    public Salary salary();
+    public Example();
 }
                     </code></pre>
-                </code>
+            </section>
 
-
-
+            <section>
+                How to use with java - @Bean property
             </section>
 
         </section>
