@@ -61,6 +61,25 @@
                 <h2>Declaration</h2>
                 <pre><code>case class User(name:String, age:Int)</code></pre>
 
+                will equal to the similar code in Java
+<pre><code>public class User {
+    private final String name;
+    private final Integer age;
+
+    public User(String name, Integer age){
+        this.name = name;
+        this.age = age;
+    }
+
+    public getName() {
+        return name;
+    }
+
+    public getAge() {
+        return age;
+    }
+}
+</code></pre>
 
             </section>
 
@@ -121,6 +140,15 @@ public class CaseClasses$User implements scala.Product,scala.Serializable {
             </section>
 
             <section>
+                <h2>Redefine methods</h2>
+<pre><code>case class User(age:Int, name:String){
+    override def toString = s"User name:$name; age:$age"
+}</code></pre>
+
+                <code>User(12, "John") == "User name:John; age:12"</code>
+            </section>
+
+            <section>
                 <h2>Pattern matching</h2>
                 <pre><code>
 case class User(var age:Int, name:String, address:Address)
@@ -132,14 +160,7 @@ def extractNameAndCity(user:User) = user match {
                 </code></pre>
             </section>
 
-            <section>
-                <h2>Redefine methods</h2>
-<pre><code>case class User(age:Int, name:String){
-    override def toString = s"User name:$name; age:$age"
-}</code></pre>
 
-                <code>User(12, "John") == "User name:John; age:12"</code>
-            </section>
 
             <section>
                 <h2>Specify default values</h2>
@@ -203,7 +224,10 @@ public Example {
             </section>
 
             <section>
-                How to use with java - @Bean property
+                To use with java add @BeanProperty to generate getters and setters java bean way
+
+                <pre><code>case class User(@BeanProperty var name:String, @BeanProperty var age:Int)</code></pre>
+
             </section>
 
         </section>
