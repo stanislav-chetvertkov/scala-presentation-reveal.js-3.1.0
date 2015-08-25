@@ -55,16 +55,23 @@
         Scala is a modern multi-paradigm programming language designed in a way to be able to express common
         programming patterns in concise elegant and type-safe way
     </p>
-</section>
-
-<section id="fragments">
-    <h2>History</h2>
     <ul>
-        <li>Created by Martin Odersky</li>
+        <li class="fragment">Created by Martin Odersky</li>
         <li class="fragment">Was released internally in late 2003</li>
         <li class="fragment">2.0 in was released in March 2006</li>
         <li class="fragment">In 2011 Typesafe Inc. was founded to support and promote the language</li>
         <li class="fragment">Current version 2.12</li>
+    </ul>
+</section>
+
+<section id="fragments">
+    <h2>Key aspects</h2>
+    <ul>
+        <li class="fragment">Functional</li>
+        <li class="fragment">Object oriented</li>
+        <li class="fragment">Static</li>
+        <li class="fragment">Dynamic features</li>
+        <li class="fragment">Compiles into JVM byte code interoperates with Java</li>
     </ul>
 
     <aside class="notes">
@@ -72,32 +79,20 @@
     </aside>
 </section>
 
-<section>
-    TODO
-    <p>
-        extending types by implicits
-        duck typing
-        case classes
-        companion object
-        no primitive types
-    </p>
-</section>
-
 <!-- Example of nested vertical slides -->
 <section>
-    <section>
-        <h2>Key features</h2>
-    </section>
+
+
 
     <section>
-        <h2>Combines Functional and Object oriented paradigm</h2>
-
-        <p>Nested slides are useful for adding additional detail underneath a high level horizontal slide.</p>
+        <h2>Prefer Immutable</h2>
+        <ul>
+            <li>Safe publishing among threads</li>
+            <li>Safe equals and hashcode</li>
+            <li>Correct work for generics</li>
+            <li>Easier to reason about behaviour without mutations</li>
+        </ul>
     </section>
-
-    <section><h2>Compiles into JVM byte code interoperates with Java</h2></section>
-
-    <section><h2>Statically typed</h2></section>
 
     <section>
         <h2>Lazy (non-strict) evaluation</h2>
@@ -114,17 +109,6 @@
             </li>
         </ul>
 
-
-    </section>
-
-    <section>
-        <h2>Prefer Immutable</h2>
-        <ul>
-            <li>Safe publishing among threads</li>
-            <li>Safe equals and hashcode</li>
-            <li>Correct work for generics</li>
-            <li>Easier to reason about behaviour without mutations</li>
-        </ul>
     </section>
 
 </section>
@@ -132,7 +116,8 @@
 <section>
     <section>
         <h2>Option</h2>
-<pre><code>sealed trait Option[+A] {
+<pre><code>
+sealed trait Option[+A] {
      def map[B](f: A => B): Option[B] def flatMap[B](f: A => Option[B]): Option[B]
     def getOrElse[B >: A](default: => B): B //lazy eval
     def orElse[B >: A](ob: => Option[B]): Option[B] //lazy eval
@@ -141,7 +126,8 @@
 }
 
 case class Some[+A](get: A) extends Option[A]
-case object None extends Option[Nothing]</code></pre>
+case object None extends Option[Nothing]
+</code></pre>
     </section>
 
     <section>
@@ -216,6 +202,28 @@ class Baz(value:Int){
 
 </section>
 
+<section>
+    <section>
+        <h2>Object oriented</h2>
+        <ul>
+            <li>Case classes</li>
+            <li>Less boilerplate</li>
+            <li>Object (static members is a lie)</li>
+        </ul>
+    </section>
+
+    <section><h1>Case classes</h1></section>
+
+    <section>
+        <h1>Less boilerplate</h1>
+    </section>
+
+    <section>
+        <h1>Object</h1>
+    </section>
+</section>
+
+    <section></section>
 
 <!-- Functional -->
 
@@ -286,16 +294,15 @@ class Baz(value:Int){
         <h3>Lambdas</h3>
 
         <p>Declaration</p>
-        <pre>
-            <code class="scala" data-trim contenteditable>val multiplyByTwo: Int => Int = (i: Int) => i * 2
+        <pre><code class="scala" data-trim contenteditable>val multiplyByTwo: Int => Int = (i: Int) => i * 2
 
 val multiplyByTwo = (i: Int) => i * 2
 
-val multiplyByTwo: (Int) => Int = _ * 2</code></pre>
+val multiplyByTwo: (Int) => Int = _ * 2
+</code></pre>
 
         <p>Usage</p>
-        <pre>
-            <code class="scala" data-trim contenteditable>nums.map((i: Int) => i * 2)
+            <pre><code class="scala" data-trim contenteditable>nums.map((i: Int) => i * 2)
 
 nums.map(multiplyByTwo)
 
@@ -313,26 +320,24 @@ nums.map(_ * 2)</code></pre>
         </ul>
 
         <pre><code class="scala" data-trim contenteditable>def factorial(n:Int):BigInt = {
-n*factorial(n-1)
-}
-            </code></pre>
+    n*factorial(n-1)
+}</code></pre>
+
     </section>
 
     <section>
         <h3>Tail call optimization</h3>
 
         <p>Tail call optimized version - recursive call is last</p>
-        <pre><code class="scala" data-trim>
-def factorial(n:Int):BigInt = {
-@tailrec
-def loop(n:Int, acc:BigInt):BigInt = {
-if (n==0) acc
-else loop(n-1, acc*n)
-}
+<pre><code class="scala" data-trim>def factorial(n:Int):BigInt = {
+        @tailrec
+        def loop(n:Int, acc:BigInt):BigInt = {
+            if (n==0) acc
+            else loop(n-1, acc*n)
+        }
 
-loop(n-1, n)
-}
-            </code></pre>
+        loop(n-1, n)
+    }</code></pre>
     </section>
 
     <section>
@@ -347,36 +352,31 @@ loop(n-1, n)
 
     <section>
         <h2>Streams</h2>
-        <pre><code class="scala">sealed trait Stream[+A] 
-case object Empty extends Stream[Nothing] 
-case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
+<pre><code class="scala">sealed trait Stream[+A] {
+    case object Empty extends Stream[Nothing] 
+    case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
 
-object Stream { 
-def cons[A](hd: => A, tl: => Stream[A]): Stream[A] = {
-lazy val head = hd // memoization 
-lazy val tail = tl 
-Cons(() => head, () => tail)
-}
+    object Stream { 
+        def cons[A](hd: => A, tl: => Stream[A]): Stream[A] = {
+        lazy val head = hd // memoization 
+        lazy val tail = tl 
+        Cons(() => head, () => tail)
+    }
 
-  def empty[A]: Stream[A] = Empty
+     def empty[A]: Stream[A] = Empty
 }</code></pre>
     </section>
 
 </section>
 
-<section>
-    <h2>Type Inference</h2>
-    <pre><code class="scala" data-trim contenteditable>val str = "Hello world"
-val list = List(1,2,3,4)
-val list = List(1,2,3,4).map(f => f +" item")</code></pre>
-</section>
+
 
 <section>
     <h2>Pattern Matching</h2>
     <ul>
         <li>Functional analog to method overriding or also enums (in Java), ‘switch on steroids’</li>
         <li>Uses deconstruct-ors ‘unapply’ methods</li>
-        <li>Algebraic data types</li>
+        <li>Algrebraic data types</li>
     </ul>
 </section>
 
