@@ -30,17 +30,12 @@
         document.getElementsByTagName('head')[0].appendChild(link);
 
     </script>
-
-    <!--[if lt IE 9]>
-    <script src="lib/js/html5shiv.js"></script>
-    <![endif]-->
 </head>
 
 <body>
 
 <div class="reveal">
 
-<!-- Any section element inside of this container is displayed as a slide -->
 <div class="slides">
 
 <section>
@@ -50,9 +45,9 @@
 
 <section>
     <h1>Definition</h1>
-
     <p>
-        Scala is a modern multi-paradigm programming language designed in a way to be able to express common
+        Scala is a modern multi-paradigm programming language
+        designed in a way to be able to express common
         programming patterns in concise elegant and type-safe way
     </p>
     <ul>
@@ -60,144 +55,39 @@
         <li class="fragment">Was released internally in late 2003</li>
         <li class="fragment">2.0 in was released in March 2006</li>
         <li class="fragment">In 2011 Typesafe Inc. was founded to support and promote the language</li>
-        <li class="fragment">Current version 2.12</li>
     </ul>
-</section>
-
-<section id="fragments">
-    <h2>Key aspects</h2>
-    <ul>
-        <li class="fragment">Functional</li>
-        <li class="fragment">Object oriented</li>
-        <li class="fragment">Static</li>
-        <li class="fragment">Dynamic features</li>
-        <li class="fragment">Compiles into JVM byte code interoperates with Java</li>
-    </ul>
-
-    <aside class="notes">
-        This slide has fragments which are also stepped through in the notes window.
-    </aside>
-</section>
-
-<!-- Example of nested vertical slides -->
-<section>
-
-
-
-    <section>
-        <h2>Prefer Immutable</h2>
-        <ul>
-            <li>Safe publishing among threads</li>
-            <li>Safe equals and hashcode</li>
-            <li>Correct work for generics</li>
-            <li>Easier to reason about behaviour without mutations</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Lazy (non-strict) evaluation</h2>
-
-        <p>There are 2 types of functions passing:</p>
-        <ul>
-            <li>
-                Strict Evaluation happens immediately
-                <pre><code>def strictFunction(arg: A) = …</code></pre>
-            </li>
-            <li>
-                Non-Strict - Evaluation is delayed as long as possible
-                <pre><code>def nonStrictFunction(arg: => A) = …</code></pre>
-            </li>
-        </ul>
-
-    </section>
-
 </section>
 
 <section>
     <section>
-        <h2>Option</h2>
-<pre><code>
-sealed trait Option[+A] {
-     def map[B](f: A => B): Option[B] def flatMap[B](f: A => Option[B]): Option[B]
-    def getOrElse[B >: A](default: => B): B //lazy eval
-    def orElse[B >: A](ob: => Option[B]): Option[B] //lazy eval
+        <h2>Scala is a blend of</h2>
+        <ul>
+            <li class="fragment">Functional</li>
+            <li class="fragment">Object Oriented</li>
+            <li class="fragment">Static</li>
+            <li class="fragment">Dynamic</li>
+        </ul>
 
-    def filter(f: A => Boolean): Option[A]
-}
-
-case class Some[+A](get: A) extends Option[A]
-case object None extends Option[Nothing]
-</code></pre>
+        <p>Scala</p>
     </section>
 
     <section>
-        <h2>Avoid NPE</h2>
-
-<pre><code>class Foo(bar:Bar){
-    def getBar():Option[Bar] = Option(bar)
-}
-
-class Bar(baz:Baz){
-    def getBaz():Option[Baz] = Option(baz)
-}
-
-class Baz(value:Int){
-    def getValue = Option(value)
-}</code></pre>
-
+        <h2>Functional features</h2>
+        <ul>
+            <li>Functions are first class citizens</li>
+            <li>Higher order functions</li>
+            <li>Lambdas</li>
+            <li>Laziness</li>
+        </ul>
     </section>
 
     <section>
-        <h4>Imperative way</h4>
-        <p>General approach looks terrible!</p>
-        <pre><code>def imperativeWay(foo:Foo) = {
-    if (foo.getBar().isDefined){
-        val bar = foo.getBar().get
-            if (bar.getBaz().isDefined){
-                val value = bar.getBaz().get
-                if (value.getValue.isDefined){
-                    value.getValue.get
-            } else None
-        } else None
-    } else None
-}</code></pre>
-    </section>
-
-    <section>
-        <h4>Pattern matching way</h4>
-        <pre><code>def patternMatchingWay(foo:Foo) = {
-    foo.getBar() match {
-        case Some(bar) =>
-            bar.getBaz() match {
-                case Some(baz) => baz.getValue match {
-                    case Some(value) => value
-                    case None => 0
-                }
-                case None => None
-            }
-        case None => None
-    }
-}</code></pre>
-    </section>
-
-    <section>
-        <h4>Monadic way</h4>
-        <pre><code>def monadicWay(foo:Foo):Option[Int] = {
-    foo.getBar().flatMap(
-        bar => bar.getBaz().flatMap(
-            baz => baz.getValue map(value => value)
-        )
-    )
-}</code></pre>
-    </section>
-
-    <section>
-        <h4>For comprehension</h4>
-        <pre><code>def forComprehensionWay(foo:Foo):Option[Int] = {
-    for( bar <- foo.getBar();
-         baz <- bar.getBaz();
-         value <- baz.getValue) yield value
-}</code></pre>
+        <h2>Dynamic features</h2>
+        <ul>
+            <li>Type inference</li>
+            <li>Extension Objects and Implicit Conversions</li>
+            <li>Duck Typing</li>
+        </ul>
     </section>
 
 </section>
@@ -221,163 +111,6 @@ class Baz(value:Int){
     <section>
         <h1>Object</h1>
     </section>
-</section>
-
-    <section></section>
-
-<!-- Functional -->
-
-<section>
-    <section>
-        <h2>Functional</h2>
-        <ul>
-            <li>Functions are first class citizens</li>
-            <li>Tail recursion</li>
-            <li>Pattern matching</li>
-            <li>Higher Level Functions</li>
-            <li>Anonymous functions</li>
-            <li>Currying</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Definition</h2>
-        <ol>
-            <li>Programming using functions</li>
-            <li>Programming with pure functions</li>
-        </ol>
-        <p>FP is a restriction on how we write programs, but not on what programs we can express</p>
-    </section>
-
-    <section>
-        <h3>Pure functions - are functions that have no side effects such:</h3>
-        <ol>
-            <li>Change of external variable</li>
-            <li>Change of a data structure/object in place</li>
-            <li>Throwing an exception or halting with an error</li>
-            <li>IO</li>
-        </ol>
-    </section>
-
-    <section>
-        <h3>Referential Transparency </h3>
-        <ul>
-            <li>In any program, the expression can be replaced by its result without changing the meaning of the
-                program
-            </li>
-            <li>Enables equational reasoning about programs. More mathematical approach to writing programs</li>
-            <li>All pure functions are referentially equal</li>
-        </ul>
-    </section>
-
-    <section>
-        <h3>Profit from using pure functions</h3>
-        <ul>
-            <li>Code reuse</li>
-            <li>Testing and debugging</li>
-            <li>Simplicity</li>
-            <li>Multicore friendly</li>
-            <li>Less bugs</li>
-        </ul>
-    </section>
-
-    <section>
-        <h3>Higher Order Function</h3>
-        <ul>
-            <li>Take one or more function as input</li>
-            <li>Return function as output</li>
-            <li>Often used with function literals - lambdas(it is not a requirement)</li>
-        </ul>
-    </section>
-
-    <section>
-        <h3>Lambdas</h3>
-
-        <p>Declaration</p>
-        <pre><code class="scala" data-trim contenteditable>val multiplyByTwo: Int => Int = (i: Int) => i * 2
-
-val multiplyByTwo = (i: Int) => i * 2
-
-val multiplyByTwo: (Int) => Int = _ * 2
-</code></pre>
-
-        <p>Usage</p>
-            <pre><code class="scala" data-trim contenteditable>nums.map((i: Int) => i * 2)
-
-nums.map(multiplyByTwo)
-
-nums.map(_ * 2)</code></pre>
-    </section>
-
-
-    <section>
-        <h3>Recursion</h3>
-        <ul>
-            <li>Substitute for loops and cycles</li>
-            <li>State can be passed with additional arguments</li>
-            <li>Use fold instead if possible</li>
-            <li>Can cause stack overflow error</li>
-        </ul>
-
-        <pre><code class="scala" data-trim contenteditable>def factorial(n:Int):BigInt = {
-    n*factorial(n-1)
-}</code></pre>
-
-    </section>
-
-    <section>
-        <h3>Tail call optimization</h3>
-
-        <p>Tail call optimized version - recursive call is last</p>
-<pre><code class="scala" data-trim>def factorial(n:Int):BigInt = {
-        @tailrec
-        def loop(n:Int, acc:BigInt):BigInt = {
-            if (n==0) acc
-            else loop(n-1, acc*n)
-        }
-
-        loop(n-1, n)
-    }</code></pre>
-    </section>
-
-    <section>
-        <h2>Functional Data Structures</h2>
-        <ul>
-            <li>Not mutable</li>
-            <li>Instances share common parts</li>
-            <li>Thread safe</li>
-            <li>Operated with pure functions</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Streams</h2>
-<pre><code class="scala">sealed trait Stream[+A] {
-    case object Empty extends Stream[Nothing] 
-    case class Cons[+A](h: () => A, t: () => Stream[A]) extends Stream[A]
-
-    object Stream { 
-        def cons[A](hd: => A, tl: => Stream[A]): Stream[A] = {
-        lazy val head = hd // memoization 
-        lazy val tail = tl 
-        Cons(() => head, () => tail)
-    }
-
-     def empty[A]: Stream[A] = Empty
-}</code></pre>
-    </section>
-
-</section>
-
-
-
-<section>
-    <h2>Pattern Matching</h2>
-    <ul>
-        <li>Functional analog to method overriding or also enums (in Java), ‘switch on steroids’</li>
-        <li>Uses deconstruct-ors ‘unapply’ methods</li>
-        <li>Algrebraic data types</li>
-    </ul>
 </section>
 
 <section>
@@ -405,7 +138,6 @@ nums.map(_ * 2)</code></pre>
         </tbody>
     </table>
 </section>
-
 
 </div>
 

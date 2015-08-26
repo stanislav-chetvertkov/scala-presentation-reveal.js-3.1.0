@@ -48,61 +48,33 @@
             <small>Created by <a href="">Stanislav Chetvertkov</a></small>
         </section>
 
-
-        <!-- Example of nested vertical slides -->
-        <section>
-
-            <section>
-                <h2>Prefer Immutable</h2>
-                <ul>
-                    <li>Safe publishing among threads</li>
-                    <li>Safe equals and hashcode</li>
-                    <li>Correct work for generics</li>
-                    <li>Easier to reason about behaviour without mutations</li>
-                </ul>
-            </section>
-
-            <section>
-                <h2>Lazy (non-strict) evaluation</h2>
-
-                <p>There are 2 types of functions passing:</p>
-                <ul>
-                    <li>
-                        Strict Evaluation happens immediately
-                        <pre><code>def strictFunction(arg: A) = …</code></pre>
-                    </li>
-                    <li>
-                        Non-Strict - Evaluation is delayed as long as possible
-                        <pre><code>def nonStrictFunction(arg: => A) = …</code></pre>
-                    </li>
-                </ul>
-
-            </section>
-
-        </section>
-
         <!-- Functional -->
 
         <section>
             <section>
                 <h2>Functional</h2>
                 <ul>
-                    <li>Functions are first class citizens</li>
-                    <li>Tail recursion</li>
-                    <li>Pattern matching</li>
+                    <li>Functions are First Class Citizens</li>
+                    <li>Tail Recursion</li>
+                    <li>Pattern Matching</li>
                     <li>Higher Level Functions</li>
-                    <li>Anonymous functions</li>
+                    <li>Anonymous Functions</li>
                     <li>Currying</li>
                 </ul>
             </section>
 
             <section>
                 <h2>Definition</h2>
+                <h4>There are 2 ways to define FP:</h4>
                 <ol>
                     <li>Programming using functions</li>
                     <li>Programming with pure functions</li>
                 </ol>
-                <p>FP is a restriction on how we write programs, but not on what programs we can express</p>
+                <br/>
+            </section>
+
+            <section>
+                <h4>FP is a restriction on how we write programs, but not on what programs we can express</h4>
             </section>
 
             <section>
@@ -152,17 +124,17 @@
                 <p>Declaration</p>
         <pre><code class="scala" data-trim contenteditable>val multiplyByTwo: Int => Int = (i: Int) => i * 2
 
-            val multiplyByTwo = (i: Int) => i * 2
+val multiplyByTwo = (i: Int) => i * 2
 
-            val multiplyByTwo: (Int) => Int = _ * 2
+val multiplyByTwo: (Int) => Int = _ * 2
         </code></pre>
 
                 <p>Usage</p>
             <pre><code class="scala" data-trim contenteditable>nums.map((i: Int) => i * 2)
 
-                nums.map(multiplyByTwo)
+nums.map(multiplyByTwo)
 
-                nums.map(_ * 2)</code></pre>
+nums.map(_ * 2)</code></pre>
             </section>
 
 
@@ -175,9 +147,7 @@
                     <li>Can cause stack overflow error</li>
                 </ul>
 
-        <pre><code class="scala" data-trim contenteditable>def factorial(n:Int):BigInt = {
-            n*factorial(n-1)
-            }</code></pre>
+        <pre><code class="scala" data-trim contenteditable>def factorial(n:Int):BigInt = n*factorial(n-1)</code></pre>
 
             </section>
 
@@ -188,12 +158,12 @@
 <pre><code class="scala" data-trim>def factorial(n:Int):BigInt = {
     @tailrec
     def loop(n:Int, acc:BigInt):BigInt = {
-    if (n==0) acc
-    else loop(n-1, acc*n)
+        if (n==0) acc
+        else loop(n-1, acc*n)
     }
 
     loop(n-1, n)
-    }</code></pre>
+}</code></pre>
             </section>
 
             <section>
@@ -225,20 +195,45 @@
 
         </section>
 
-
-
         <section>
             <h2>Pattern Matching</h2>
             <ul>
                 <li>Functional analog to method overriding or also enums (in Java), ‘switch on steroids’</li>
                 <li>Uses deconstruct-ors ‘unapply’ methods</li>
-                <li>Algrebraic data types</li>
+                <li>Algebraic data types</li>
             </ul>
         </section>
 
 
+        <section>
+            <h2>Prefer Immutable</h2>
+            <ul>
+                <li>Safe publishing among threads</li>
+                <li>Safe equals and hashcode</li>
+                <li>Correct work for generics</li>
+                <li>Easier to reason about behaviour without mutations</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Lazy (non-strict) evaluation</h2>
+
+            <p>There are 2 types of functions passing:</p>
+            <ul>
+                <li>
+                    Strict Evaluation happens immediately
+                    <pre><code>def strictFunction(arg: A) = …</code></pre>
+                </li>
+                <li>
+                    Non-Strict - Evaluation is delayed as long as possible
+                    <pre><code>def nonStrictFunction(arg: => A) = …</code></pre>
+                </li>
+            </ul>
+
+        </section>
 
     </div>
+
 
 </div>
 
