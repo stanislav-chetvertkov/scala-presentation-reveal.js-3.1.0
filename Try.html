@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>reveal.js - The HTML Presentation Framework</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Hakim El Hattab">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/moon.css" id="theme">
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+        var link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+        document.getElementsByTagName('head')[0].appendChild(link);
+
+    </script>
+
+</head>
+
+<body>
+
+<div class="reveal">
+
+    <div class="slides">
+
+        <section>
+            <h1>Using Try</h1>
+        </section>
+
+        <section>
+
+            <section>
+                <h2>Imperative style</h2>
+                <pre><code>val youngCustomer = Customer(15)
+try {
+    buyCigarettes(youngCustomer)
+    "Yo, here are your cancer sticks! Happy smokin'!"
+} catch {
+    case UnderAgeException(msg) => msg
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <h2>Usage</h2>
+                <pre><code>Try{block of code that might produce and exception}</code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+import scala.util.Try
+import java.net.URL
+def parseURL(url: String): Try[URL] = Try(new URL(url))
+                </code></pre>
+            </section>
+
+
+            <section>
+                <pre><code>val url = parseURL(Console.readLine("URL: ")) getOrElse new URL("http://duckduckgo.com")</code></pre>
+            </section>
+
+            <section>
+                <pre><code>def parseURL(url: String): Try[URL] = Try(new URL(url))</code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+val getExample = parseURL("htt://malformed-url")
+    .orElse(parseURL("https1232://unexistent-"))
+    .getOrElse(parseURL("http://ya.ru"))
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+// unnecessary nesting
+def inputStreamForURL(url: String): Try[Try[Try[InputStream]]] =
+    parseURL(url).map { u =>
+        Try(u.openConnection()).map(conn => Try(conn.getInputStream))
+    }
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+def inputStreamForURL2(url: String): Try[InputStream] = parseURL(url).flatMap { u =>
+    Try(u.openConnection())
+        .flatMap(conn => Try(conn.getInputStream))
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+// For comprehension
+def inputStreamForURL3(url: String): Try[InputStream] = {
+    for (u <- parseURL(url);
+        conn <- Try(u.openConnection());
+        is <- Try(conn.getInputStream)) yield is
+}
+                </code></pre>
+            </section>
+
+
+            <section>
+                <pre><code>
+def getURLContent(url: String): Try[Iterator[String]] = for {
+    url <- parseURL(url)
+    connection <- Try(url.openConnection())
+    is <- Try(connection.getInputStream)
+    source = Source.fromInputStream(is)
+} yield source.getLines()
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+def getUrlContentPlain(url:String) = {
+    parseURL(url).flatMap(u => Try(u.openConnection())
+        .flatMap(conn => Try(conn.getInputStream)
+            .map(is => Source.fromInputStream(is).getLines())
+        )
+    )
+}
+                </code></pre>
+            </section>
+
+            <section>
+                <pre><code>
+getURLContent("http://hostname.com") match {
+    case Success(lines) => lines.foreach(println)
+    case Failure(ex) => println(s"Problem rendering URL content: ${ex.getMessage}")
+}
+                </code></pre>
+            </section>
+
+        </section>
+
+
+    </div>
+
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+
+<script>
+
+    // Full list of configuration options available at:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+        // Optional reveal.js plugins
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function () {
+                return !document.body.classList;
+            } },
+            { src: 'plugin/markdown/marked.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/markdown/markdown.js', condition: function () {
+                return !!document.querySelector('[data-markdown]');
+            } },
+            { src: 'plugin/highlight/highlight.js', async: true, condition: function () {
+                return !!document.querySelector('pre code');
+            }, callback: function () {
+                hljs.initHighlightingOnLoad();
+            } },
+            { src: 'plugin/zoom-js/zoom.js', async: true },
+            { src: 'plugin/notes/notes.js', async: true }
+        ]
+    });
+
+
+</script>
+
+</body>
+</html>

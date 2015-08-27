@@ -30,93 +30,60 @@
         document.getElementsByTagName('head')[0].appendChild(link);
 
     </script>
+
 </head>
 
 <body>
 
 <div class="reveal">
 
-<div class="slides">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
 
-<section>
-    <h1>Scala philosophy</h1>
-    <small>Created by <a href="">Stanislav Chetvertkov</a></small>
-</section>
-
-<section>
-    <h1>Definition</h1>
-    <p>
-        Scala is a modern multi-paradigm programming language
-        designed in a way to be able to express common
-        programming patterns in concise elegant and type-safe way
-    </p>
-</section>
-
-<section><h2>Scala is statically typed language</h2></section>
-
-    <section>
-        <section data-background-size="800px" data-background="./images/scala_mind_map.png"></section>
-
-    </section>
-
-    <section>
-        <h2>Scala is a blend of</h2>
-        <ul>
-            <li class="fragment">Functional</li>
-            <li class="fragment">Object Oriented</li>
-            <li class="fragment">Static</li>
-            <li class="fragment">Dynamic</li>
-        </ul>
-    </section>
-
-<section>
-
-
-    <section>
-        <h2><a href="./functional.html">Functional features</a></h2>
-        <ul>
-            <li>Functions are first class citizens</li>
-            <li>Higher order functions</li>
-            <li>Lambdas</li>
-            <li>Laziness</li>
-        </ul>
-    </section>
-
-    <section>
-        <h2>Dynamic features</h2>
-        <ul>
-            <li>Type inference</li>
-            <li><a href="./features/implicits.html">Extension Objects and Implicit Conversions</a></li>
-            <li>Duck Typing</li>
-        </ul>
-    </section>
-
-</section>
-
-<section>
-    <section>
-        <h2>Object oriented</h2>
-        <ul>
-            <li><a href="./oop/case-classes.html">Case classes</a></li>
-            <li><a href="./oop/object.html">Object</a></li>
-            <li><a href="./oop/inheritance.html">Multiple inheritance with traits</a></li>
-            <li>Less boilerplate</li>
-        </ul>
-    </section>
-</section>
-
-    <section>
         <section>
-            <h2>Useful features</h2>
-            <ul>
-                <li><a href="./Option.html">Option</a></li>
-                <li><a href="./Try.html">Try</a></li>
-                <li><a href="./Either.html">Either</a></li>
-            </ul>
+            <h1>Using Either</h1>
+            <small>Created by <a href="">Stanislav Chetvertkov</a></small>
         </section>
-    </section>
 
-</div>
+        <section>
+
+            <section>
+                <h2>Option</h2>
+                <p>Container that either contains result or exception</p>
+            </section>
+
+            <section>
+                <h2>Example</h2>
+<pre><code>def execute(item: ConfigObject): Either[Exception, ConfigRule] = {
+    var name: String = ""
+    try {
+        val configValue = item.toConfig
+        name = configValue.getString("name")
+        val ruleType = configValue.getString("type")
+        val length = getOptionalInt("length", configValue)
+        val start = getOptionalInt("events.start", configValue)
+        val stop = getOptionalInt("events.stop", configValue)
+        val attempt = getOptionalInt("events.attempt", configValue)
+        val intermediate = getOptionalInt("events.intermediate", configValue)
+
+        Right(ConfigRule(name, ruleType, length, start, stop, attempt, intermediate))
+    } catch {
+        case e: Exception =>
+            println("Failed to parse rule with name '" + name + "' " + e)
+            Left(new IllegalArgumentException("Failed to parse rule with name '" + name + "' " + e))
+    }
+}</code></pre>
+            </section>
+
+            <section>
+                <pre><code>val (errorRules, validRules) = configRules.partition(_.isLeft)</code></pre>
+
+            </section>
+
+        </section>
+
+
+    </div>
 
 </div>
 
